@@ -1,0 +1,21 @@
+<div class="file-upload-content">
+    <input type="file" class="file-input"
+    (change)="onFileSelected($event)" #fileUpload>
+
+    <div class="file-upload">
+    {{fileName || "No file uploaded yet."}}
+
+    <button mat-mini-fab color="primary" class="upload-btn"
+    (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    </div>
+    <div *ngIf="imageDataUrl">
+        <img [src]="imageDataUrl" alt="./assets/questionMark.png" class="chosen-file-image">
+    <span>
+        <div>Image Processing: </div>
+        <progress class="progress progress-primary w-56" value="{{progress}}" max="100"></progress>
+    </span>
+    </div>
+</div>
+

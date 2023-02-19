@@ -1,0 +1,12 @@
+.file-upload-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.file-input {
+    display: none;
+}
+.chosen-file-image{
+    max-width: 400px;
+    max-height: 400px;
+}
