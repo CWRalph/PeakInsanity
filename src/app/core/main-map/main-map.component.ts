@@ -1,8 +1,8 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild, AfterViewInit } from '@angular/core';
 
-export interface MapDimensions{
-  xpos:number;
-  ypos:number;
+export interface MapPosition{
+  x:number;
+  y:number;
   width:number;
   height:number;
 }
@@ -12,18 +12,29 @@ export interface MapDimensions{
   templateUrl: './main-map.component.html',
   styleUrls: ['./main-map.component.scss']
 })
-export class MainMapComponent implements OnInit{
-  @ViewChild('map-image') mapImage!:ElementRef;
-  
-  mapDimensions?:MapDimensions;
+export class MainMapComponent implements OnInit, AfterViewInit{
+  @ViewChild('mapImage') mapImage!:ElementRef;
+  @Output() mapPosition = new EventEmitter<MapPosition>();
+
+  constructor(){}
 
   ngOnInit(): void {
     console.log("Map launched")
   }
-  
 
-  setMapDimensions(dimensions:MapDimensions){
-    this.mapDimensions = dimensions;
+  ngAfterViewInit(): void {
+    setTimeout(()=>{
+      const nativeChildElementHitbox = this.mapImage.nativeElement.getBoundingClientRect();
+      this.mapPosition.emit(
+        {
+          x:nativeChildElementHitbox.x,
+          y:nativeChildElementHitbox.y,
+          width: nativeChildElementHitbox.width,
+          height:nativeChildElementHitbox.height,
+        }
+      )
+    },10)
   }
+  
 }
 
