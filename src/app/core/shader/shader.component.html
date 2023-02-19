@@ -1,1 +1,3 @@
-<p>shader works!</p>
+<div *ngIf="showShader">
+    <div [ngStyle]="{'background-color': '#ccc','left':'{{shaderPosition.x}}','top':'{{shaderPosition.y}}', 'width': '{{shaderPosition.width}}', 'height': '{{shaderPosition.height}}'}"></div>
+</div>

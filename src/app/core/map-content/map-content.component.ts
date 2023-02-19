@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MapPosition } from '../main-map/main-map.component';
 
 @Component({
   selector: 'app-map-content',
@@ -6,9 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./map-content.component.scss']
 })
 export class MapContentComponent {
-
+  showShader = false;
+  shaderPosition?:MapPosition;
   
-  printChild(event:any){
+  printChild(event:MapPosition){
     console.log("event: ",event);
+    this.shaderPosition = event;
+    this.showShader = true;
   }
 }

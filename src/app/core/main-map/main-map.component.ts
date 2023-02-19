@@ -22,9 +22,9 @@ export class MainMapComponent implements OnInit, AfterViewInit{
     console.log("Map launched")
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(()=>{
-      const nativeChildElementHitbox = this.mapImage.nativeElement.getBoundingClientRect();
+  waitForNonZeroWidth(){
+    const nativeChildElementHitbox = this.mapImage.nativeElement.getBoundingClientRect();
+    if(nativeChildElementHitbox.width > 0){
       this.mapPosition.emit(
         {
           x:nativeChildElementHitbox.x,
@@ -33,8 +33,12 @@ export class MainMapComponent implements OnInit, AfterViewInit{
           height:nativeChildElementHitbox.height,
         }
       )
-    },10)
+    }
+    else setTimeout(()=>this.waitForNonZeroWidth(),100);
   }
-  
+
+  ngAfterViewInit(): void {
+    this.waitForNonZeroWidth();
+  }
 }
 
